@@ -29,6 +29,7 @@ class CustomIcon extends StatelessWidget {
           'assets/images/$iconName.png',
           width: wight,
           height: hight,
+          scale: 0.9,
         ),
       ),
     );
