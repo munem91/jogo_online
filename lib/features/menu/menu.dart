@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jogo_online/features/audio_cubit/audio_cubit.dart';
 
 class MenuScreen extends StatelessWidget {
-  MenuScreen({Key? key}) : super(key: key);
-  final player = AudioPlayer();
+  const MenuScreen({Key? key}) : super(key: key);
+  // final player = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
+    var audioCubit = BlocProvider.of<AudioCubit>(context);
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -24,9 +28,7 @@ class MenuScreen extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () async {
-                    await player.play(
-                      AssetSource('sound/knopka.mp3'),
-                    );
+                    await audioCubit.playSound1('sound/knopka.mp3');
                     // Обработка нажатия на изображение "Play"
                     if (context.mounted) {
                       Navigator.of(context).pushReplacementNamed('/gameScreen');
@@ -40,9 +42,7 @@ class MenuScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () async {
-                    await player.play(
-                      AssetSource('sound/knopka.mp3'),
-                    );
+                    await audioCubit.playSound1('sound/knopka.mp3');
                     if (context.mounted) {
                       Navigator.of(context)
                           .pushReplacementNamed('/settingScreen');
@@ -56,9 +56,7 @@ class MenuScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () async {
-                    await player.play(
-                      AssetSource('sound/knopka.mp3'),
-                    );
+                    await audioCubit.playSound1('sound/knopka.mp3');
                     if (context.mounted) {
                       Navigator.of(context)
                           .pushReplacementNamed('/rulesScreen');
@@ -72,9 +70,7 @@ class MenuScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () async {
-                    await player.play(
-                      AssetSource('sound/knopka.mp3'),
-                    );
+                    await audioCubit.playSound1('sound/knopka.mp3');
                     if (context.mounted) {
                       Navigator.of(context).pushReplacementNamed('/exitScreen');
                     }

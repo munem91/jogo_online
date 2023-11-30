@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:jogo_online/features/audio_cubit/audio_cubit.dart';
 import 'package:jogo_online/features/export.dart';
 import 'package:jogo_online/features/game/bloc/game_bloc.dart';
 
@@ -14,6 +14,8 @@ class Game extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GameBloc, GameState>(
       builder: (context, state) {
+        var audioCubit = BlocProvider.of<AudioCubit>(context);
+
         if (state is GameInProgressState) {
           return Stack(
             children: [
@@ -109,8 +111,11 @@ class Game extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 20.0),
                       child: GestureDetector(
-                        onTap: () {
-                          // Ваш код для открытия другого экрана
+                        onTap: () async {
+                          await audioCubit.playSound1('sound/knopka.mp3');
+                          if (context.mounted) {
+                            // Ваш код для открытия другого экрана
+                          }
                           Navigator.of(context).pushReplacementNamed('/');
                         },
                         child: SizedBox(

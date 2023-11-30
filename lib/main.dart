@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jogo_online/features/audio_cubit/audio_cubit.dart';
 import 'package:jogo_online/features/menu/menu.dart';
 
 import 'features/export.dart';
@@ -14,43 +15,48 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => MenuScreen(),
-        // MenuScreen(),
-        '/settingScreen': (context) => const SettingScreen(),
-        '/gameScreen': (context) => const GameScreen(),
-        '/winnerScreen': (context) => const WinnerScreen(),
-        '/rulesScreen': (context) => const RulesScreen(),
-        '/exitScreen': (context) => const ExitScreen(),
-      },
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme:
-            ColorScheme.fromSwatch(backgroundColor: Colors.white).copyWith(
-          primary: Colors.black,
-        ),
-        textTheme: TextTheme(
-          titleLarge:
-              GoogleFonts.galindo(color: Colors.white, fontSize: 32, shadows: [
-            const Shadow(
-                // bottomLeft
-                offset: Offset(-1.8, -1.8),
-                color: Colors.black),
-            const Shadow(
-                // bottomRight
-                offset: Offset(1.8, -1.8),
-                color: Colors.black),
-            const Shadow(
-                // topRight
-                offset: Offset(1.8, 1.8),
-                color: Colors.black),
-            const Shadow(
-                // topLeft
-                offset: Offset(-1.8, 1.8),
-                color: Colors.black),
-          ]),
+    return BlocProvider(
+      create: (context) => AudioCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/': (context) => MenuScreen(),
+          // MenuScreen(),
+          '/settingScreen': (context) => const SettingScreen(),
+          '/gameScreen': (context) => const GameScreen(),
+          '/winnerScreen': (context) => const WinnerScreen(),
+          '/rulesScreen': (context) => const RulesScreen(),
+          '/exitScreen': (context) => const ExitScreen(),
+        },
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme:
+              ColorScheme.fromSwatch(backgroundColor: Colors.white).copyWith(
+            primary: Colors.black,
+          ),
+          textTheme: TextTheme(
+            titleLarge: GoogleFonts.galindo(
+                color: Colors.white,
+                fontSize: 32,
+                shadows: [
+                  const Shadow(
+                      // bottomLeft
+                      offset: Offset(-1.8, -1.8),
+                      color: Colors.black),
+                  const Shadow(
+                      // bottomRight
+                      offset: Offset(1.8, -1.8),
+                      color: Colors.black),
+                  const Shadow(
+                      // topRight
+                      offset: Offset(1.8, 1.8),
+                      color: Colors.black),
+                  const Shadow(
+                      // topLeft
+                      offset: Offset(-1.8, 1.8),
+                      color: Colors.black),
+                ]),
+          ),
         ),
       ),
     );

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jogo_online/features/audio_cubit/audio_cubit.dart';
 
 class ExitScreen extends StatelessWidget {
   const ExitScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var audioCubit = BlocProvider.of<AudioCubit>(context);
+
     return Scaffold(
       body: Center(
         child: Container(
@@ -19,9 +23,13 @@ class ExitScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 20.0, top: 60),
             child: GestureDetector(
-              onTap: () {
-                // Ваш код для открытия другого экрана
-                Navigator.of(context).pushReplacementNamed('/');
+              onTap: () async {
+                await audioCubit.playSound1('sound/knopka.mp3');
+                // Обработка нажатия на изображение "Play"
+                if (context.mounted) {
+                  // Ваш код для открытия другого экрана
+                  Navigator.of(context).pushReplacementNamed('/');
+                }
               },
               child: SizedBox(
                 width: 24 * 3,
