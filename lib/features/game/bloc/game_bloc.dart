@@ -54,7 +54,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
 
     // Уничтожить помеченные элементы
-    _crushCandy(initialBoard);
+    _crushCandy(initialBoard, emit, state);
 
     emit(
       GameInProgressState(
@@ -136,7 +136,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         if (hasMatch) {
           int matchCount = _getMatchCount(updatedBoard);
           updatedScore += (matchCount > 3) ? 70 : 50;
-          _crushCandy(updatedBoard);
+          _crushCandy(updatedBoard, emit, state);
         }
 
         emit(GameInProgressState(
@@ -246,7 +246,9 @@ int _getMatchCount(List<List<int>> board) {
   return matchCount;
 }
 
-void _crushCandy(List<List<int>> board) {
+void _crushCandy(
+    List<List<int>> board, Emitter<GameState> emit, GameState state) {
+  int totalCrushedCandies = 0;
   bool hasCrush = true;
 
   while (hasCrush) {
@@ -269,6 +271,15 @@ void _crushCandy(List<List<int>> board) {
             board[r][c + i] = -1;
           }
           hasCrush = true;
+
+          // Начислить очки за каждый новый элемент
+          emit(GameInProgressState(
+            board: board,
+            draggedIndex: null,
+            score: (state as GameInProgressState).score +
+                consecutiveCount, // Начислить очки
+            level: (state).level,
+          ));
         }
       }
     }
@@ -290,6 +301,15 @@ void _crushCandy(List<List<int>> board) {
             board[r + i][c] = -1;
           }
           hasCrush = true;
+
+          // Начислить очки за каждый новый элемент
+          emit(GameInProgressState(
+            board: board,
+            draggedIndex: null,
+            score: (state as GameInProgressState).score +
+                consecutiveCount, // Начислить очки
+            level: (state).level,
+          ));
         }
       }
     }
@@ -310,7 +330,7 @@ void _crushCandy(List<List<int>> board) {
 
       // Заменить новыми конфетами
       for (int i = 0; i < emptyCount; i++) {
-        board[i][c] = Random().nextInt(5);
+        board[i][c] = Random().nextInt(7);
       }
     }
   }
