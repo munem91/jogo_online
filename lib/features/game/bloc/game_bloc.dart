@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'game_event.dart';
@@ -56,7 +57,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _crushCandy(initialBoard);
 
     emit(
-        GameInProgressState(board: initialBoard, draggedIndex: null, score: 0));
+      GameInProgressState(
+          board: initialBoard, draggedIndex: null, score: 0, level: 0),
+    );
   }
 
   bool _hasThreeOrMoreInARow(List<List<int>> board) {
@@ -127,16 +130,47 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         updatedBoard[secondRow][secondCol] = temp;
       }
 
-      // Here, you can also check for and crush candies if necessary
-      if (hasMatch) {
-        int matchCount = _getMatchCount(updatedBoard);
-        updatedScore += (matchCount > 3) ? 70 : 50;
-        _crushCandy(updatedBoard);
+      // Continue checking and crushing candies until no more matches
+      while (hasMatch) {
+        // Here, you can also check for and crush candies if necessary
+        if (hasMatch) {
+          int matchCount = _getMatchCount(updatedBoard);
+          updatedScore += (matchCount > 3) ? 70 : 50;
+          _crushCandy(updatedBoard);
+        }
 
         emit(GameInProgressState(
           board: updatedBoard,
           draggedIndex: null,
           score: updatedScore,
+          level:
+              (state as GameInProgressState).level, // Keep the level unchanged
+        ));
+
+        // Check for new matches after crushing candies
+        hasMatch = _hasThreeOrMoreInARow(updatedBoard) ||
+            _hasThreeOrMoreInAColumn(updatedBoard);
+      }
+      if (state is GameInProgressState) {
+        int currentLevel = (state as GameInProgressState).level;
+
+        if (updatedScore >= 1000 && currentLevel < 5) {
+          currentLevel = 5; // Уровень 6 (индекс 5 в списке)
+        } else if (updatedScore >= 800 && currentLevel < 4) {
+          currentLevel = 4; // Уровень 5 (индекс 4 в списке)
+        } else if (updatedScore >= 600 && currentLevel < 3) {
+          currentLevel = 3; // Уровень 4 (индекс 3 в списке)
+        } else if (updatedScore >= 400 && currentLevel < 2) {
+          currentLevel = 2; // Уровень 3 (индекс 2 в списке)
+        } else if (updatedScore >= 200 && currentLevel < 1) {
+          currentLevel = 1; // Уровень 2 (индекс 1 в списке)
+        }
+
+        emit(GameInProgressState(
+          board: updatedBoard,
+          draggedIndex: null,
+          score: updatedScore,
+          level: currentLevel,
         ));
       } else {
         // No match after reverting the swap

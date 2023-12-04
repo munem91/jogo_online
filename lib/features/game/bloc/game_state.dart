@@ -21,34 +21,34 @@ class InitialGameState extends GameState {
   final int score = 0;
 }
 
-class InitializeDrag extends GameEvent {
-  final int draggedIndex;
-
-  InitializeDrag({required this.draggedIndex});
-}
-
-class FinishDrag extends GameEvent {}
-
 class GameInProgressState extends GameState {
   @override
   final List<List<int>> board;
+  final int level;
   @override
   final int score;
 
   @override
   final int? draggedIndex;
 
-  GameInProgressState({required this.board, this.draggedIndex, this.score = 0});
+  GameInProgressState({
+    required this.board,
+    this.draggedIndex,
+    this.score = 0,
+    this.level = 0, // Добавлено поле для уровня
+  });
 
   GameInProgressState copyWith({
     List<List<int>>? board,
     int? draggedIndex,
     int? score,
+    int? level,
   }) {
     return GameInProgressState(
       board: board ?? this.board,
       draggedIndex: draggedIndex ?? this.draggedIndex,
       score: score ?? this.score,
+      level: level ?? this.level,
     );
   }
 

@@ -98,10 +98,12 @@ class Game extends StatelessWidget {
                   ),
                 ],
               ),
-              const Positioned(
+              Positioned(
                 top: 700,
                 right: 130,
-                child: TimerWidget(),
+                child: TimerWidget(
+                  level: state.level,
+                ),
               ),
               Positioned(
                 top: 75, // Подстройте положение при необходимости
@@ -215,7 +217,8 @@ class Game extends StatelessWidget {
 }
 
 class TimerWidget extends StatefulWidget {
-  const TimerWidget({Key? key}) : super(key: key);
+  const TimerWidget({Key? key, required this.level}) : super(key: key);
+  final int level; // Добавьте это поле
 
   @override
   TimerWidgetState createState() => TimerWidgetState();
@@ -229,6 +232,10 @@ class TimerWidgetState extends State<TimerWidget> {
   @override
   void initState() {
     super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), _updateTimer);
   }
 
@@ -242,21 +249,50 @@ class TimerWidgetState extends State<TimerWidget> {
         _seconds = 59;
       } else {
         _seconds--;
+        if (widget.level >= 5) {
+          Navigator.of(context).pushReplacementNamed('/winnerScreen');
+        }
       }
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant TimerWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Проверяем изменение уровня
+    if (widget.level != oldWidget.level) {
+      // Сбрасываем таймер и начинаем заново
+      _timer.cancel();
+      _minutes = 1;
+      _seconds = 30;
+      _startTimer();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 0),
-      child: Row(children: [
-        Text(
-          'Time: ',
-          style: Theme.of(context).textTheme.titleLarge,
+      child: Column(children: [
+        Row(
+          children: [
+            Text(
+              'Time: ',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(
+              width: 2,
+            ),
+            Text(
+              '$_minutes:${_seconds < 10 ? '0' : ''}$_seconds',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ],
         ),
+        const SizedBox(height: 10),
         Text(
-          '$_minutes:${_seconds < 10 ? '0' : ''}$_seconds',
+          'Level: ${widget.level}',
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ]),

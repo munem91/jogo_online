@@ -33,6 +33,8 @@ class WinnerScreen extends StatelessWidget {
                       onTap: () async {
                         await audioCubit.playSound1('sound/knopka.mp3');
                         if (context.mounted) {
+                          BlocProvider.of<GameBloc>(context)
+                              .add(InitializeGame());
                           Navigator.of(context).pushReplacementNamed('/');
                         }
                       },
@@ -57,7 +59,7 @@ class WinnerScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 15),
                         Text(
-                          'Maps: 4/5',
+                          'Level: ${state.level}',
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ]),

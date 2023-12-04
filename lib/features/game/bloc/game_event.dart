@@ -11,3 +11,15 @@ class SwapTiles extends GameEvent {
 
   SwapTiles({required this.firstIndex, required this.secondIndex});
 }
+
+class LevelUpEvent extends GameEvent {}
+
+class FinishDrag extends GameEvent {}
+
+class InitializeDrag extends GameEvent {
+  final int draggedIndex;
+
+  InitializeDrag({required this.draggedIndex});
+}
+
+class UpdateLevel extends GameEvent {}
