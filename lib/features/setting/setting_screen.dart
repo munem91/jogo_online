@@ -34,12 +34,8 @@ class SettingScreen extends StatelessWidget {
                           Navigator.of(context).pushReplacementNamed('/');
                         }
                       },
-                      child: SizedBox(
-                        width: 24 * 3,
-                        height: 24 * 3,
-                        child: Image.asset(
-                          "assets/images/back.png",
-                        ),
+                      child: Image.asset(
+                        "assets/images/back.png",
                       ),
                     ),
                     const SizedBox(

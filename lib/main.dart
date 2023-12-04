@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => const MenuScreen(),
+          '/': (context) => const WinnerScreen(),
           // MenuScreen(),
           '/settingScreen': (context) => const SettingScreen(),
           '/gameScreen': (context) => const GameScreen(),
