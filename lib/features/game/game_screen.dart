@@ -19,11 +19,7 @@ class GameScreen extends StatelessWidget {
               fit: BoxFit.fill,
             ),
           ),
-          child: BlocProvider(
-            create: (context) =>
-                GameBloc(rows: 7, columns: 6)..add(InitializeGame()),
-            child: const Game(),
-          ),
+          child: const Game(),
         ),
       ),
     );

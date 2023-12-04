@@ -55,7 +55,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     // Уничтожить помеченные элементы
     _crushCandy(initialBoard);
 
-    emit(GameInProgressState(board: initialBoard, draggedIndex: null));
+    emit(
+        GameInProgressState(board: initialBoard, draggedIndex: null, score: 0));
   }
 
   bool _hasThreeOrMoreInARow(List<List<int>> board) {

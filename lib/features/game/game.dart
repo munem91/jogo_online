@@ -134,7 +134,7 @@ class Game extends StatelessWidget {
                     Text(
                       '${state.score}',
                       style: Theme.of(context).textTheme.titleLarge,
-                    ),
+                    )
                   ],
                 ),
 
@@ -236,7 +236,7 @@ class TimerWidgetState extends State<TimerWidget> {
     setState(() {
       if (_minutes == 0 && _seconds == 0) {
         timer.cancel();
-        // Здесь можно добавить логику, выполняемую по истечении времени
+        Navigator.of(context).pushReplacementNamed('/winnerScreen');
       } else if (_seconds == 0) {
         _minutes--;
         _seconds = 59;

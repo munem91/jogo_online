@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jogo_online/features/audio_cubit/audio_cubit.dart';
-import 'package:jogo_online/features/menu/menu.dart';
+import 'package:jogo_online/features/game/bloc/game_bloc.dart';
 
 import 'features/export.dart';
 
@@ -15,12 +15,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AudioCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AudioCubit>(create: (context) => AudioCubit()),
+        BlocProvider<GameBloc>(
+            create: (context) =>
+                GameBloc(rows: 7, columns: 6)..add(InitializeGame())),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => MenuScreen(),
+          '/': (context) => const MenuScreen(),
           // MenuScreen(),
           '/settingScreen': (context) => const SettingScreen(),
           '/gameScreen': (context) => const GameScreen(),
