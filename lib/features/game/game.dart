@@ -275,25 +275,30 @@ class TimerWidgetState extends State<TimerWidget> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 0),
       child: Column(children: [
-        Row(
-          children: [
-            Text(
-              'Time: ',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(
-              width: 2,
-            ),
-            Text(
-              '$_minutes:${_seconds < 10 ? '0' : ''}$_seconds',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.all(1.0),
+          child: Row(
+            children: [
+              Text(
+                'Time: ',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Text(
+                '$_minutes:${_seconds < 10 ? '0' : ''}$_seconds',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: 10),
-        Text(
-          'Level: ${widget.level}',
-          style: Theme.of(context).textTheme.titleLarge,
+        const SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: Text(
+            'Maps: ${widget.level}/5',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
         ),
       ]),
     );

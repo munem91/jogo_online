@@ -1,12 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jogo_online/features/audio_cubit/audio_cubit.dart';
 import 'package:jogo_online/features/game/bloc/game_bloc.dart';
+import 'package:jogo_online/features/game/bloc/game_cubit.dart';
 
 import 'features/export.dart';
 
 void main() {
+  GetIt.I.registerLazySingleton<AbstractDioRepository>(
+      () => DioRepository(dio: Dio()));
   runApp(const MyApp());
 }
 
@@ -25,13 +30,15 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => const MenuScreen(),
+          '/': (context) => const FirstScreen(),
           // MenuScreen(),
           '/settingScreen': (context) => const SettingScreen(),
           '/gameScreen': (context) => const GameScreen(),
           '/winnerScreen': (context) => const WinnerScreen(),
           '/rulesScreen': (context) => const RulesScreen(),
           '/exitScreen': (context) => const ExitScreen(),
+          '/menuScreen': (context) => const MenuScreen(),
+          '/startScreen': (context) => const StartGame(),
         },
         theme: ThemeData(
           useMaterial3: true,
@@ -67,25 +74,49 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//       home: Scaffold(
-//         body: Center(
-//           child: Container(
-//             alignment: Alignment.center,
-//             decoration: const BoxDecoration(
-//               image: DecorationImage(
-//                 image: AssetImage(
-//                     "assets/images/fon.png"), // Замените на путь к вашему изображению фона
-//                 fit: BoxFit.fill,
-//               ),
-//             ),
-//             child: BlocProvider(
-//               create: (context) =>
-//                   GameBloc(rows: 7, columns: 6)..add(InitializeGame()),
-//               child: const Game(),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+
+class FirstScreen extends StatelessWidget {
+  const FirstScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<GameCubit>(
+      create: (context) =>
+          GameCubit(GetIt.I.get<AbstractDioRepository>())..load(),
+      child: Scaffold(
+        body: content(context),
+      ),
+    );
+  }
+}
+
+Widget content(BuildContext context) {
+  return Center(
+    child: BlocConsumer<GameCubit, ScreenState>(
+      builder: (context, state) {
+        return const Center(
+          child: CircularProgressIndicator(backgroundColor: Colors.orange),
+        );
+      },
+      listener: (context, state) {
+        if (state.status == LoadinStatus.ready &&
+            (state.url == null ||
+                state.url ==
+                    'https://play.google.com/store/apps/details?id=tigers.fortune.plays.fun')) {
+          Navigator.of(context).pushReplacementNamed('/firstScreen');
+        } else if (state.status == LoadinStatus.error) {
+          Navigator.of(context).pushReplacementNamed('/firstScreen');
+          //
+        } else if (state.status == LoadinStatus.ready) {
+          debugPrint('Response from the server: ${state.url}');
+
+          if (state.isFirstLaunch) {
+            Navigator.of(context).pushReplacementNamed('/menuScreen');
+          } else {
+            Navigator.of(context).pushReplacementNamed('/startScreen');
+          }
+        }
+      },
+    ),
+  );
+}
