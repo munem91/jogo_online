@@ -9,35 +9,35 @@ part 'screen_state.dart';
 
 class GameCubit extends Cubit<ScreenState> {
   GameCubit(this.dioRepository)
-      : super(const ScreenState(
-            status: LoadinStatus.initial, url: null, isFirstLaunch: true));
+      : super(const ScreenState(status: LoadinStatus.initial, url: null));
 
   Future load() async {
-    emit(const ScreenState(
-        status: LoadinStatus.loading, url: null, isFirstLaunch: true));
+    emit(const ScreenState(status: LoadinStatus.loading, url: null));
 
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      final bool isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
+      final String? data =
+          await dioRepository.fetchData(); // Уточните тип данных здесь
 
-      if (isFirstLaunch) {
-        debugPrint('Это первый запуск!');
+      if (data != null) {
+        const url = 'fefe'; // Уточните тип данных здесь
+
+        if (url != null) {
+          emit(const ScreenState(status: LoadinStatus.ready, url: url));
+          print(url);
+        } else {
+          emit(const ScreenState(status: LoadinStatus.error, url: null));
+        }
       } else {
-        debugPrint('Это не первый запуск.');
+        emit(const ScreenState(status: LoadinStatus.error, url: null));
       }
-
-      // Сохранить факт первого запуска в Shared Preferences
-      await prefs.setBool('isFirstLaunch', false);
-
-      final url = await dioRepository.fetchData();
-
-      emit(ScreenState(
-          status: LoadinStatus.ready, url: url, isFirstLaunch: isFirstLaunch));
     } catch (e) {
-      emit(const ScreenState(
-          status: LoadinStatus.error, url: null, isFirstLaunch: true));
+      emit(const ScreenState(status: LoadinStatus.error, url: null));
     }
   }
 
   final AbstractDioRepository dioRepository;
+}
+
+bool isRedirect(Uri uri) {
+  return uri.host != 'example.com';
 }

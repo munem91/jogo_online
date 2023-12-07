@@ -99,22 +99,17 @@ Widget content(BuildContext context) {
         );
       },
       listener: (context, state) {
-        if (state.status == LoadinStatus.ready &&
-            (state.url == null ||
-                state.url ==
-                    'https://play.google.com/store/apps/details?id=tigers.fortune.plays.fun')) {
-          Navigator.of(context).pushReplacementNamed('/firstScreen');
-        } else if (state.status == LoadinStatus.error) {
-          Navigator.of(context).pushReplacementNamed('/firstScreen');
-          //
-        } else if (state.status == LoadinStatus.ready) {
-          debugPrint('Response from the server: ${state.url}');
+        if (state.url != null) {
+          final uri = Uri.tryParse(state.url!);
 
-          if (state.isFirstLaunch) {
-            Navigator.of(context).pushReplacementNamed('/menuScreen');
-          } else {
+          if (uri != null && isRedirect(uri)) {
             Navigator.of(context).pushReplacementNamed('/startScreen');
+            return;
           }
+
+          Navigator.of(context).pushReplacementNamed('/startScreen');
+        } else if (state.status == LoadinStatus.error) {
+          Navigator.of(context).pushReplacementNamed('/startScreen');
         }
       },
     ),

@@ -22,22 +22,41 @@ class DioRepository implements AbstractDioRepository {
       String objectId = '00D69F45-887A-410F-ACD3-DBDBB79F2F60';
 
       String url = '$baseUrl/$applicationId/$apiKey/data/$className/$objectId';
+      print(url);
+      final result = await dio.get(
+        url,
+        options: Options(followRedirects: false),
+      );
 
-      // Шаг 2: Отправляем запрос
-      final response = await dio.get(url);
+      // Добавим информацию о ответе в лог
 
-      // Шаг 3: Извлекаем необходимую информацию
-      Map<String, dynamic> responseData = response.data;
-      String jogoBaseUrl = responseData['jogo_base'];
+      // Обработка успешного ответа
+      Map<String, dynamic>? responseData = result.data;
+      print(responseData);
+      String? url2;
+      if (responseData != null) {
+        url2 = responseData['jogo_base'] as String?;
+        print(url2);
+        if (url2 != null) {
+          // Отправить запрос по URL из url2
+          final url2Result = await dio.get(
+            url2,
+            
+            options: Options(followRedirects: false),
+          );
+                    print('Status Code from url2Result: ${url2Result.statusCode}');
 
-      // Возвращаем полученную ссылку
-      return jogoBaseUrl;
-    } on DioError catch (e) {
-      // Обработка ошибок Dio
-      print('Dio error: $e');
+        }
+      }
+      return url2;
+    } on DioException catch (e) {
+      
+      if (e.response!.statusCode == 302) {
+        // return e.response!.headers['location']![0];
+        print('302!!!!!!!!!!!!');
+      }
       return null;
     } catch (error) {
-      // Обработка других ошибок
       print('Error: $error');
       return null;
     }
