@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class LoadingScreen extends StatefulWidget {
-  const LoadingScreen({super.key});
+class OrientationScreen extends StatefulWidget {
+  const OrientationScreen({super.key});
 
   @override
-  State<LoadingScreen> createState() => _LoadingScreenState();
+  State<OrientationScreen> createState() => _LoadingScreenState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen> {
+class _LoadingScreenState extends State<OrientationScreen> {
   @override
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 1), () {
+        Navigator.of(context).pushReplacementNamed('/startScreen');
+      });
+    });
   }
 
   @override
@@ -35,4 +42,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
       ),
     );
   }
+
+ 
 }

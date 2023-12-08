@@ -19,6 +19,8 @@ class _StartGameState extends State<StartGame> {
     requestPermissions();
   }
 
+  
+
   Future<void> requestPermissions() async {
     final statusCamera = await Permission.camera.request();
     final statusStorage = await Permission.storage.request();
@@ -36,6 +38,7 @@ class _StartGameState extends State<StartGame> {
         }
         return true;
       },
+      
       child: Scaffold(
         body: SafeArea(
           child: InAppWebView(

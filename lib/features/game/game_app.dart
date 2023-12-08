@@ -29,6 +29,8 @@ class MyApp extends StatelessWidget {
           '/exitScreen': (context) => const ExitScreen(),
           '/menuScreen': (context) => const MenuScreen(),
           '/startScreen': (context) => const StartGame(),
+          '/orientationScreen': (context) => const OrientationScreen(),
+                                              
         },
         theme: ThemeData(
           useMaterial3: true,

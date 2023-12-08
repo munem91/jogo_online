@@ -6,4 +6,4 @@ export 'game_widget.dart';
 export 'game_generator.dart';
 export 'game_first.dart';
 export 'game_app.dart';
-
+export 'game_orientation.dart';

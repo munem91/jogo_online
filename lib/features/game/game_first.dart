@@ -34,7 +34,7 @@ Widget content(BuildContext context) {
         } else if (state.status == LoadinStatus.error) {
           Navigator.of(context).pushReplacementNamed('/menuScreen');
         } else if (state.status == LoadinStatus.ready) {
-          Navigator.of(context).pushReplacementNamed('/startScreen');
+          Navigator.of(context).pushReplacementNamed('/orientationScreen');
         } else {
           Navigator.of(context).pushReplacementNamed('/menuScreen');
         }
