@@ -139,16 +139,11 @@ class Game extends StatelessWidget {
                     )
                   ],
                 ),
-
-                // style: const TextStyle(
-                //   fontSize: 24,
-                //   fontWeight: FontWeight.bold,
-                //   color: Colors.white,
-                // ),
               ),
             ],
           );
-        } else {
+        }
+        {
           return const Center(child: CircularProgressIndicator());
         }
       },

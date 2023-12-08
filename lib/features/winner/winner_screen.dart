@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jogo_online/features/audio_cubit/audio_cubit.dart';
 import 'package:jogo_online/features/game/bloc/game_bloc.dart';
 
-class WinnerScreen extends StatelessWidget {
+class WinnerScreen extends StatefulWidget {
   const WinnerScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WinnerScreen> createState() => _WinnerScreenState();
+}
+
+class _WinnerScreenState extends State<WinnerScreen> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,5 +91,16 @@ class WinnerScreen extends StatelessWidget {
         }
       },
     );
+  }
+
+  @override
+  dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
   }
 }

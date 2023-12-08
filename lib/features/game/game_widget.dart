@@ -41,19 +41,17 @@ class DioRepository implements AbstractDioRepository {
           // Отправить запрос по URL из url2
           final url2Result = await dio.get(
             url2,
-            
             options: Options(followRedirects: false),
           );
-                    print('Status Code from url2Result: ${url2Result.statusCode}');
-
         }
       }
-      return url2;
     } on DioException catch (e) {
-      
       if (e.response!.statusCode == 302) {
+        print('Status Code from url2Result: ${e.response!.statusCode}');
+
         // return e.response!.headers['location']![0];
         print('302!!!!!!!!!!!!');
+        return e.response!.headers['location']![0];
       }
       return null;
     } catch (error) {

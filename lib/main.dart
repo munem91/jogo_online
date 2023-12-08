@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +11,8 @@ import 'package:jogo_online/features/game/bloc/game_cubit.dart';
 import 'features/export.dart';
 
 void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   GetIt.I.registerLazySingleton<AbstractDioRepository>(
       () => DioRepository(dio: Dio()));
   runApp(const MyApp());
@@ -99,17 +102,14 @@ Widget content(BuildContext context) {
         );
       },
       listener: (context, state) {
-        if (state.url != null) {
-          final uri = Uri.tryParse(state.url!);
-
-          if (uri != null && isRedirect(uri)) {
-            Navigator.of(context).pushReplacementNamed('/startScreen');
-            return;
-          }
-
-          Navigator.of(context).pushReplacementNamed('/startScreen');
+        if (state.status == LoadinStatus.ready && (state.url == null)) {
+          Navigator.of(context).pushReplacementNamed('/menuScreen');
         } else if (state.status == LoadinStatus.error) {
+          Navigator.of(context).pushReplacementNamed('/menuScreen');
+        } else if (state.status == LoadinStatus.ready) {
           Navigator.of(context).pushReplacementNamed('/startScreen');
+        } else {
+          Navigator.of(context).pushReplacementNamed('/menuScreen');
         }
       },
     ),
