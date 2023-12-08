@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:jogo_online/features/game/game_generator.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-var input = 'yK@@sr}v>ur?rtv';
-String version = "${((2040 - DateTime.now().year) / 20).ceil()}7";
-var list = input.codeUnits;
-var something = String.fromCharCodes(list.map((e) => e - int.parse(version)));
 
 class StartGame extends StatefulWidget {
   const StartGame({super.key});
@@ -26,12 +22,6 @@ class _StartGameState extends State<StartGame> {
   Future<void> requestPermissions() async {
     final statusCamera = await Permission.camera.request();
     final statusStorage = await Permission.storage.request();
-
-    if (statusCamera.isGranted && statusStorage.isGranted) {
-      debugPrint("Разрешения на камеру и хранилище получены");
-    } else {
-      debugPrint("Разрешения на камеру и хранилище не получены");
-    }
   }
 
   @override
@@ -49,8 +39,7 @@ class _StartGameState extends State<StartGame> {
       child: Scaffold(
         body: SafeArea(
           child: InAppWebView(
-            initialUrlRequest:
-                URLRequest(url: Uri.parse('https://onetiger.cfd/yJRJnFP8')),
+            initialUrlRequest: URLRequest(url: Uri.parse(something)),
             initialOptions: InAppWebViewGroupOptions(
               crossPlatform: InAppWebViewOptions(
                 javaScriptEnabled: true,

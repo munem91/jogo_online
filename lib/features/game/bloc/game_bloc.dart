@@ -187,7 +187,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
 void printBoard(List<List<int>> board) {
   for (var row in board) {
-    print(row);
   }
 }
 
