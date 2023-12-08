@@ -99,15 +99,15 @@ class Game extends StatelessWidget {
                 ],
               ),
               Positioned(
-                top: 700,
-                right: 130,
+                top: 680,
+                right: 100,
                 child: TimerWidget(
                   level: state.level,
                 ),
               ),
               Positioned(
                 top: 75, // Подстройте положение при необходимости
-                left: 20, // Подстройте положение при необходимости
+                left: 10, // Подстройте положение при необходимости
                 child: Row(
                   children: [
                     Padding(
@@ -268,35 +268,41 @@ class TimerWidgetState extends State<TimerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 0),
-      child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.all(1.0),
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
           child: Row(
             children: [
               Text(
-                'Time: ',
+                '  Time: ',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              Text(
-                '$_minutes:${_seconds < 10 ? '0' : ''}$_seconds',
-                style: Theme.of(context).textTheme.titleLarge,
+              SizedBox(
+                width: 80,
+                height: 40,
+                child: Text(
+                  '$_minutes:${_seconds < 10 ? '0' : ''}$_seconds',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
               ),
             ],
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 20,
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 20),
+          padding: const EdgeInsets.only(right: 10),
           child: Text(
             'Maps: ${widget.level}/5',
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
-      ]),
-    );
+      ],
+    ));
   }
 
   @override

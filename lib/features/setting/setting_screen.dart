@@ -11,7 +11,7 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-    @override
+  @override
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([
@@ -19,7 +19,7 @@ class _SettingScreenState extends State<SettingScreen> {
       DeviceOrientation.portraitDown,
     ]);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +54,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ),
                     ),
                     const SizedBox(
-                        height: 250), // Добавленный отступ снизу от back.png
+                        height: 230), // Добавленный отступ снизу от back.png
                     InkWell(
                       onTap: () async {
                         audioCubit.toggleButton1Sound();
@@ -69,7 +69,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 20),
                     InkWell(
                       onTap: () async {
                         audioCubit.toggleButton2Sound();
@@ -96,7 +96,8 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
     );
   }
- @override
+
+  @override
   dispose() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,

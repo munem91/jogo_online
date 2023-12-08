@@ -98,7 +98,7 @@ Widget content(BuildContext context) {
     child: BlocConsumer<GameCubit, ScreenState>(
       builder: (context, state) {
         return const Center(
-          child: CircularProgressIndicator(backgroundColor: Colors.orange),
+          child: LoadingScreen(),
         );
       },
       listener: (context, state) {
