@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:jogo_bbrbet_online/features/game/bloc/game_cubit.dart';
@@ -34,11 +35,21 @@ Widget content(BuildContext context) {
         } else if (state.status == LoadinStatus.error) {
           Navigator.of(context).pushReplacementNamed('/menuScreen');
         } else if (state.status == LoadinStatus.ready) {
-          Navigator.of(context).pushReplacementNamed('/orientationScreen');
+          initState();
+          Navigator.of(context).pushReplacementNamed('/startScreen');
         } else {
           Navigator.of(context).pushReplacementNamed('/menuScreen');
         }
       },
     ),
   );
+}
+
+void initState() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeRight,
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 }
