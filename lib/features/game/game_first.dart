@@ -1,10 +1,7 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:jogo_online/features/game/bloc/game_cubit.dart';
+import 'package:jogo_bbrbet_online/features/game/bloc/game_cubit.dart';
 
 import '../export.dart';
 
@@ -32,7 +29,7 @@ Widget content(BuildContext context) {
         );
       },
       listener: (context, state) {
-        if (state.status == LoadinStatus.ready && (state.url == null)) {
+        if (state.status == LoadinStatus.ready && (state.start == null)) {
           Navigator.of(context).pushReplacementNamed('/menuScreen');
         } else if (state.status == LoadinStatus.error) {
           Navigator.of(context).pushReplacementNamed('/menuScreen');

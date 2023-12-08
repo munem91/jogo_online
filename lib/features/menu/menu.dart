@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jogo_online/features/audio_cubit/audio_cubit.dart';
+import 'package:jogo_bbrbet_online/features/audio_cubit/audio_cubit.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);

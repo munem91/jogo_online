@@ -3,11 +3,11 @@ part of 'game_cubit.dart';
 
 class ScreenState {
   final LoadinStatus status;
-  final String? url;
+  final String? start;
 
   const ScreenState({
     required this.status,
-    this.url,
+    this.start,
   });
 }
 

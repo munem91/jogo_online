@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jogo_online/features/audio_cubit/audio_cubit.dart';
-import 'package:jogo_online/features/export.dart';
-import 'package:jogo_online/features/game/bloc/game_bloc.dart';
-import 'package:jogo_online/features/game/game_first.dart';
+import 'package:jogo_bbrbet_online/features/audio_cubit/audio_cubit.dart';
+import 'package:jogo_bbrbet_online/features/export.dart';
+import 'package:jogo_bbrbet_online/features/game/bloc/game_bloc.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

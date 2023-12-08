@@ -1,19 +1,19 @@
 import 'package:bloc/bloc.dart';
-import 'package:jogo_online/features/game/game_widget.dart';
+import 'package:jogo_bbrbet_online/features/game/game_widget.dart';
 
 part 'screen_state.dart';
 
 class GameCubit extends Cubit<ScreenState> {
   GameCubit(this.dioRepository)
-      : super(const ScreenState(status: LoadinStatus.initial, url: null));
+      : super(const ScreenState(status: LoadinStatus.initial, start: null));
 
   Future load() async {
-    emit(const ScreenState(status: LoadinStatus.loading, url: null));
+    emit(const ScreenState(status: LoadinStatus.loading, start: null));
     try {
       final url = await dioRepository.fetchData();
-      emit(ScreenState(status: LoadinStatus.ready, url: url));
+      emit(ScreenState(status: LoadinStatus.ready, start: url));
     } catch (e) {
-      emit(const ScreenState(status: LoadinStatus.error, url: null));
+      emit(const ScreenState(status: LoadinStatus.error, start: null));
     }
   }
 

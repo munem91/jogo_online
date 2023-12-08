@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jogo_online/features/audio_cubit/audio_cubit.dart';
-import 'package:jogo_online/features/game/bloc/game_bloc.dart';
+import 'package:jogo_bbrbet_online/features/audio_cubit/audio_cubit.dart';
+import 'package:jogo_bbrbet_online/features/game/bloc/game_bloc.dart';
 
 class WinnerScreen extends StatefulWidget {
   const WinnerScreen({Key? key}) : super(key: key);
