@@ -21,14 +21,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          alignment: Alignment.topLeft,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                  "assets/images/loading.png"), // Замените на путь к вашему изображению фона
-              fit: BoxFit.fill,
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            alignment: Alignment.topLeft,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    "assets/images/loading.png"), // Замените на путь к вашему изображению фона
+                fit: BoxFit.fill,
+              ),
             ),
           ),
         ),

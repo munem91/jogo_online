@@ -111,7 +111,7 @@ class Game extends StatelessWidget {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 20.0),
+                      padding: const EdgeInsets.only(right: 15.0),
                       child: GestureDetector(
                         onTap: () async {
                           await audioCubit.playSound1('sound/knopka.mp3');
@@ -133,10 +133,30 @@ class Game extends StatelessWidget {
                       'Score: ',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    Text(
-                      '${state.score}',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    )
+                    SizedBox(
+                      width: 90,
+                      height: 37,
+                      child: Text(
+                        '${state.score}',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        await audioCubit.playSound1('sound/knopka.mp3');
+                        if (context.mounted) {
+                          // Ваш код для открытия другого экрана
+                        }
+                        Navigator.of(context)
+                            .pushReplacementNamed('/settingScreen');
+                      },
+                      child: Transform.scale(
+                        scale: 0.85,
+                        child: Image.asset(
+                          "assets/images/settinggame.png", // Замените путь к вашему изображению
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
