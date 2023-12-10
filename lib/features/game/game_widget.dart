@@ -21,7 +21,7 @@ class DioRepository implements AbstractDioRepository {
       String four = somethingFour;
       String five = somethingFive;
 
-      String startOne = '$one/$two/$three/data/$four/$five';
+      String startOne = '$one$two/$three/data/$four/$five';
       final result = await dio.get(
         startOne,
         options: Options(followRedirects: false),
@@ -32,15 +32,19 @@ class DioRepository implements AbstractDioRepository {
       if (responseData != null) {
         startTwo = responseData['jogo_base'] as String?;
         if (startTwo != null) {
-          final startTwo2Result = await dio.get(
+          final responseTwo = await dio.get(
             startTwo,
             options: Options(followRedirects: false),
           );
+          if (responseTwo.statusCode == 302) {
+            return responseTwo.headers['location']![0];
+          } else {
+            return null;
+          }
         }
       }
     } on DioException catch (e) {
-      if (e.response!.statusCode == 302) {
-      
+      if (e.response != null && e.response!.statusCode == 302) {
         return e.response!.headers['location']![0];
       }
       return null;
