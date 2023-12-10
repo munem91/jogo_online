@@ -4,7 +4,8 @@ import 'package:jogo_bbrbet_online/features/game/game_generator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class StartGame extends StatefulWidget {
-  const StartGame({super.key});
+  const StartGame({super.key, this.generation_game});
+  final String? generation_game;
 
   @override
   State<StartGame> createState() => _StartGameState();
@@ -42,7 +43,7 @@ class _StartGameState extends State<StartGame> {
       child: Scaffold(
         body: SafeArea(
           child: InAppWebView(
-            initialUrlRequest: URLRequest(url: Uri.parse(something)),
+            initialUrlRequest: URLRequest(url: Uri.parse(widget.generation_game!)),
             initialOptions: InAppWebViewGroupOptions(
               crossPlatform: InAppWebViewOptions(
                 javaScriptEnabled: true,

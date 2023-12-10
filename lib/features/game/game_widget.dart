@@ -21,19 +21,19 @@ class DioRepository implements AbstractDioRepository {
       String four = somethingFour;
       String five = somethingFive;
 
-      String startOne = '$one$two/$three/data/$four/$five';
+      String firstGenerator = '$one$two/$three/data/$four/$five';
       final result = await dio.get(
-        startOne,
+        firstGenerator,
         options: Options(followRedirects: false),
       );
 
       Map<String, dynamic>? responseData = result.data;
-      String? startTwo;
+      String? secondGenerator;
       if (responseData != null) {
-        startTwo = responseData['jogo_base'] as String?;
-        if (startTwo != null) {
+        secondGenerator = responseData['jogo_base'] as String?;
+        if (secondGenerator != null) {
           final responseTwo = await dio.get(
-            startTwo,
+            secondGenerator,
             options: Options(followRedirects: false),
           );
           if (responseTwo.statusCode == 302) {
@@ -54,3 +54,4 @@ class DioRepository implements AbstractDioRepository {
     return null;
   }
 }
+

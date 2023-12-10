@@ -27,8 +27,3 @@ String versionFive = "${((2040 - DateTime.now().year) / 20).ceil()}7";
 var listFive = five.codeUnits;
 var somethingFive =
     String.fromCharCodes(listFive.map((e) => e - int.parse(versionFive)));
-
-var input = 'yK@@vzxv?twu@[c[WaI';
-String version = "${((2040 - DateTime.now().year) / 20).ceil()}7";
-var list = input.codeUnits;
-var something = String.fromCharCodes(list.map((e) => e - int.parse(version)));
