@@ -17,169 +17,182 @@ class Game extends StatelessWidget {
         var audioCubit = BlocProvider.of<AudioCubit>(context);
 
         if (state is GameInProgressState) {
-          return SafeArea(
-            child: Align(
-              child: Stack(
+          return Stack(
+            children: [
+              Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Column(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: GestureDetector(
+                      onTap: () async {
+                        await audioCubit.playSound1('sound/knopka.mp3');
+                        if (context.mounted) {
+                          Navigator.of(context).pushReplacementNamed('/');
+                        }
+                      },
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        child: Image.asset(
+                          "assets/images/back.png",
+                          // scale: MediaQuery.of(context).size.height * 0.0017,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Stack(
                       children: [
-                        Expanded(
-                          child: Center(
-                            child: GridView.builder(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 265),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 6,
-                              ),
-                              itemCount:
-                                  state.board.length * state.board[0].length,
-                              itemBuilder: (context, index) {
-                                int row = index ~/ state.board[0].length;
-                                int col = index % state.board[0].length;
-                                int color = state.board[row][col];
-
-                                return BlocBuilder<GameBloc, GameState>(
-                                  builder: (context, state) => Draggable<int>(
-                                    key: ValueKey<int>(index),
-                                    data: index,
-                                    childWhenDragging: CustomIcon(
-                                      iconName: getColorName(color),
-                                      wight: 64,
-                                      hight: 64,
-                                    ),
-                                    onDragStarted: () {
-                                      context.read<GameBloc>().add(
-                                          InitializeDrag(draggedIndex: index));
-                                    },
-                                    onDraggableCanceled: (velocity, offset) {
-                                      context
-                                          .read<GameBloc>()
-                                          .add(FinishDrag());
-                                    },
-                                    onDragEnd: (details) {
-                                      context
-                                          .read<GameBloc>()
-                                          .add(FinishDrag());
-                                    },
-                                    feedback: CustomIcon(
-                                      iconName: getColorName(color),
-                                      wight: 64,
-                                      hight: 64,
-                                    ),
-                                    child: DragTarget<int>(
-                                      key: ValueKey<int>(index),
-                                      builder: (BuildContext context,
-                                          List<int?> candidateData,
-                                          List<dynamic> rejectedData) {
-                                        final bool isNeighbour =
-                                            _isDraggedNeighbor(index, state);
-
-                                        return Container(
-                                          margin: EdgeInsets.all(
-                                              isNeighbour ? 2.0 : 0.1),
-                                          padding: EdgeInsets.all(
-                                              isNeighbour ? 2.0 : 0.1),
-                                          child: CustomIcon(
-                                            iconName: getColorName(color),
-                                            wight: isNeighbour ? 160 : 164,
-                                            hight: isNeighbour ? 160 : 164,
-                                          ),
-                                        );
-                                      },
-                                      onWillAccept: (data) {
-                                        return true;
-                                      },
-                                      onAccept: (data) {
-                                        context.read<GameBloc>().add(SwapTiles(
-                                            firstIndex: data,
-                                            secondIndex: index));
-                                        context
-                                            .read<GameBloc>()
-                                            .add(FinishDrag());
-                                      },
-                                    ),
-                                  ),
-                                );
-                              },
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.65,
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          // color: Colors.green,
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                            image: AssetImage('assets/images/upbloc.png'),
+                          )),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  ' Score: ',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                Text(
+                                  '${state.score}',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Positioned(
-                    top: 680,
-                    right: 100,
-                    child: TimerWidget(
-                      level: state.level,
-                    ),
-                  ),
-                  Positioned(
-                    top: 67, // Подстройте положение при необходимости
-                    left: 10, // Подстройте положение при необходимости
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20.0),
-                          child: GestureDetector(
-                            onTap: () async {
-                              await audioCubit.playSound1('sound/knopka.mp3');
-                              if (context.mounted) {
-                                // Ваш код для открытия другого экрана
-                              }
-                              Navigator.of(context).pushReplacementNamed('/');
-                            },
-                            child: SizedBox(
-                              width: 24 * 3,
-                              height: 24 * 3,
-                              child: Image.asset(
-                                "assets/images/back.png", // Замените путь к вашему изображению
-                              ),
-                            ),
-                          ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        await audioCubit.playSound1('sound/knopka.mp3');
+                        if (context.mounted) {
+                          // Ваш код для открытия другого экрана
+                        }
+                        if (context.mounted) {
+                          Navigator.of(context)
+                              .pushReplacementNamed('/settingScreen');
+                        }
+                      },
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        child: Image.asset(
+                          "assets/images/settinggame.png",
+                          // scale: MediaQuery.of(context).size.height * 0.0017,
                         ),
-                        Text(
-                          'Score: ',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        SizedBox(
-                          width: 90,
-                          height: 37,
-                          child: Text(
-                            '${state.score}',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            await audioCubit.playSound1('sound/knopka.mp3');
-                            if (context.mounted) {
-                              // Ваш код для открытия другого экрана
-                            }
-                            Navigator.of(context)
-                                .pushReplacementNamed('/settingScreen');
-                          },
-                          child: Transform.scale(
-                            scale: 0.85,
-                            child: Image.asset(
-                              "assets/images/settinggame.png", // Замените путь к вашему изображению
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
+              Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.1314),
+                  Container(
+                    // color: Colors.pink,
+                    // width: 650,
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/pirat.png')),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.055),
+                    child: SizedBox(
+                      // color: Colors.pink,
+                      height: MediaQuery.of(context).size.height * 0.63,
+                      // width: 640,
+                      child: gameUi(state),
+                    ),
+                  ),
+                  TimerWidget(
+                    level: state.level,
+                  ),
+                ],
+              ),
+            ],
           );
         }
         {
           return const Center(child: CircularProgressIndicator());
         }
+      },
+    );
+  }
+
+  GridView gameUi(GameInProgressState state) {
+    return GridView.builder(
+      // padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      scrollDirection: Axis.vertical,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 6,
+      ),
+      itemCount: state.board.length * state.board[0].length,
+      itemBuilder: (context, index) {
+        int row = index ~/ state.board[0].length;
+        int col = index % state.board[0].length;
+        int color = state.board[row][col];
+
+        return BlocBuilder<GameBloc, GameState>(
+          builder: (context, state) => Draggable<int>(
+            key: ValueKey<int>(index),
+            data: index,
+            childWhenDragging: CustomIcon(
+              iconName: getColorName(color),
+              wight: 64,
+              hight: 64,
+            ),
+            onDragStarted: () {
+              context.read<GameBloc>().add(InitializeDrag(draggedIndex: index));
+            },
+            onDraggableCanceled: (velocity, offset) {
+              context.read<GameBloc>().add(FinishDrag());
+            },
+            onDragEnd: (details) {
+              context.read<GameBloc>().add(FinishDrag());
+            },
+            feedback: CustomIcon(
+              iconName: getColorName(color),
+              wight: 64,
+              hight: 64,
+            ),
+            child: DragTarget<int>(
+              key: ValueKey<int>(index),
+              builder: (BuildContext context, List<int?> candidateData,
+                  List<dynamic> rejectedData) {
+                final bool isNeighbour = _isDraggedNeighbor(index, state);
+
+                return CustomIcon(
+                  iconName: getColorName(color),
+                  wight: isNeighbour ? 160 : 164,
+                  hight: isNeighbour ? 160 : 164,
+                );
+              },
+              onWillAccept: (data) {
+                return true;
+              },
+              onAccept: (data) {
+                context
+                    .read<GameBloc>()
+                    .add(SwapTiles(firstIndex: data, secondIndex: index));
+                context.read<GameBloc>().add(FinishDrag());
+              },
+            ),
+          ),
+        );
       },
     );
   }
@@ -301,45 +314,39 @@ class TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsetsDirectional.only(top: 15),
-            child: Row(
-              children: [
-                Text(
-                  '  Time: ',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                SizedBox(
-                  width: 80,
-                  height: 40,
-                  child: Text(
-                    '$_minutes:${_seconds < 10 ? '0' : ''}$_seconds',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                ),
-              ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '  Time: ',
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-          ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.2,
+              height: MediaQuery.of(context).size.height * 0.047,
+              child: Text(
+                '$_minutes:${_seconds < 10 ? '0' : ''}$_seconds',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(
-          height: 0,
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.02,
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 10),
+          padding: const EdgeInsets.only(right: 45),
           child: Text(
             'Maps: ${widget.level}/5',
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
       ],
-    ));
+    );
   }
 
   @override

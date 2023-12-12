@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jogo_bbrbet_online/features/audio_cubit/audio_cubit.dart';
+import 'package:jogo_bbrbet_online/features/game/bloc/game_bloc.dart';
 
 import 'export.dart';
 
@@ -22,35 +25,20 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Stack(
-            alignment: Alignment.bottomRight,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/fon.png"),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                child: const Game(),
+    return BlocBuilder<GameBloc, GameState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: SafeArea(
+            child: Stack(fit: StackFit.expand, children: [
+              Image.asset(
+                'assets/images/settingscreen.png', // Укажите путь к вашему изображению
+                fit: BoxFit.fill,
               ),
-              Positioned(
-                top: 696,
-                right: 30.0,
-                child: Image.asset(
-                  'assets/images/spisok.png', // Путь к вашему изображению
-                  width: 90, // Укажите нужную ширину
-                  height: 90, // Укажите нужную высоту
-                ),
-              ),
-            ],
+              const Game()
+            ]),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

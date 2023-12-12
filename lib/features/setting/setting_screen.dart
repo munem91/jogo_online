@@ -28,70 +28,139 @@ class _SettingScreenState extends State<SettingScreen> {
           var audioCubit = BlocProvider.of<AudioCubit>(context);
 
           return SafeArea(
-            child: Center(
-              child: Container(
-                alignment: Alignment.topLeft,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                        "assets/images/settingscreen.png"), // Замените на путь к вашему изображению фона
-                    fit: BoxFit.fill,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.asset(
+                  'assets/images/settingscreen.png', // Укажите путь к вашему изображению
+                  fit: BoxFit.fill,
+                ),
+
+                Positioned(
+                  height: MediaQuery.of(context).size.height * 0.23,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: GestureDetector(
+                    onTap: () async {
+                      await audioCubit.playSound1('sound/knopka.mp3');
+                      if (context.mounted) {
+                        Navigator.of(context).pushReplacementNamed('/');
+                      }
+                    },
+                    child: Image.asset(
+                      "assets/images/back.png",
+                      scale: 1.2,
+                    ),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0, top: 52),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                // Вертикальная колонка с плашкой и содержимым
+                Center(
+                  child: Stack(
                     children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await audioCubit.playSound1('sound/knopka.mp3');
-                          if (context.mounted) {
-                            Navigator.of(context).pushReplacementNamed('/');
-                          }
-                        },
-                        child: Image.asset(
-                          "assets/images/back.png",
-                        ),
-                      ),
-                      const SizedBox(
-                          height: 230), // Добавленный отступ снизу от back.png
-                      InkWell(
-                        onTap: () async {
-                          audioCubit.toggleButton1Sound();
-                          await audioCubit.playSound1('sound/knopka.mp3');
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 230.0),
-                          child: Image.asset(
-                            audioCubit.isButton1SoundEnabled
-                                ? "assets/images/on.png"
-                                : "assets/images/off.png",
+                      Container(
+                        width: MediaQuery.of(context).size.height * 0.85,
+                        height: MediaQuery.of(context).size.width * 0.85,
+                        // color: Colors.black,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/plaska.png"),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      InkWell(
-                        onTap: () async {
-                          audioCubit.toggleButton2Sound();
-                          if (!audioCubit.isButton2SoundEnabled) {
-                            audioCubit.stopSound2();
-                          }
-                          await audioCubit.playSound2('sound/music.mp3');
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 230.0),
-                          child: Image.asset(
-                            audioCubit.isButton2SoundEnabled
-                                ? "assets/images/on.png"
-                                : "assets/images/off.png",
-                          ),
-                        ),
-                      ),
+
+                        // Строка с текстом "Settings"
+
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Settings",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              // Блок Sound
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 55, bottom: 20),
+                                      child: Text(
+                                        "Sound",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      )),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 20, right: 50),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        audioCubit.toggleButton1Sound();
+                                        await audioCubit
+                                            .playSound1('sound/knopka.mp3');
+                                      },
+                                      child: Image.asset(
+                                        audioCubit.isButton1SoundEnabled
+                                            ? "assets/images/on.png"
+                                            : "assets/images/off.png",
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              // Блок Music
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 55, bottom: 30),
+                                    child: Text(
+                                      "Music",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 30, right: 50),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        audioCubit.toggleButton2Sound();
+                                        if (!audioCubit.isButton2SoundEnabled) {
+                                          audioCubit.stopSound2();
+                                        }
+                                        await audioCubit
+                                            .playSound2('sound/music.mp3');
+                                      },
+                                      child: Image.asset(
+                                        audioCubit.isButton2SoundEnabled
+                                            ? "assets/images/on.png"
+                                            : "assets/images/off.png",
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ]),
+                      )
                     ],
                   ),
                 ),
-              ),
+              ],
             ),
           );
         },

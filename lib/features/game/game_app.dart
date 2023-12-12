@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               routes: {
-                '/': (context) => const FirstScreen(),
+                '/': (context) => const MenuScreen(),
+                // FirstScreen(),
                 // MenuScreen(),
                 '/settingScreen': (context) => const SettingScreen(),
                 '/gameScreen': (context) => const GameScreen(),
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
                 '/exitScreen': (context) => const ExitScreen(),
                 '/menuScreen': (context) => const MenuScreen(),
                 '/startScreen': (context) => StartGame(
-                      generation_game: secondGenerator,
+                      generationGame: secondGenerator,
                     ),
               },
               theme: ThemeData(
@@ -52,7 +53,28 @@ class MyApp extends StatelessWidget {
                 textTheme: TextTheme(
                   titleLarge: GoogleFonts.galindo(
                       color: Colors.white,
-                      fontSize: 32,
+                      fontSize: MediaQuery.of(context).size.height * 0.038,
+                      shadows: [
+                        const Shadow(
+                            // bottomLeft
+                            offset: Offset(-1.8, -1.8),
+                            color: Colors.black),
+                        const Shadow(
+                            // bottomRight
+                            offset: Offset(1.8, -1.8),
+                            color: Colors.black),
+                        const Shadow(
+                            // topRight
+                            offset: Offset(1.8, 1.8),
+                            color: Colors.black),
+                        const Shadow(
+                            // topLeft
+                            offset: Offset(-1.8, 1.8),
+                            color: Colors.black),
+                      ]),
+                  titleSmall: GoogleFonts.galindo(
+                      color: Colors.white,
+                      fontSize: 22,
                       shadows: [
                         const Shadow(
                             // bottomLeft
