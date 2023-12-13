@@ -28,7 +28,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                    "assets/images/loading.png"), // Замените на путь к вашему изображению фона
+                    "assets/images/loading.png"), 
                 fit: BoxFit.fill,
               ),
             ),

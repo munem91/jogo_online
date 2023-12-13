@@ -39,9 +39,9 @@ class _ExitScreenState extends State<ExitScreen> {
               child: GestureDetector(
                 onTap: () async {
                   await audioCubit.playSound1('sound/knopka.mp3');
-                  // Обработка нажатия на изображение "Play"
+                  
                   if (context.mounted) {
-                    // Ваш код для открытия другого экрана
+                    
                     Navigator.of(context).pushReplacementNamed('/');
                   }
                 },
@@ -57,14 +57,14 @@ class _ExitScreenState extends State<ExitScreen> {
                   Container(
                     width: MediaQuery.of(context).size.height * 0.85,
                     height: MediaQuery.of(context).size.width * 0.85,
-                    // color: Colors.black,
+                    
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/images/plaska.png"),
                       ),
                     ),
 
-                    // Строка с текстом "Settings"
+                    
 
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -82,11 +82,11 @@ class _ExitScreenState extends State<ExitScreen> {
                           ),
                         ),
 
-                        // Блок Sound
+                        
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // Блок для "Yes"
+                            
                             Column(
                               children: [
                                 Text(
@@ -101,7 +101,7 @@ class _ExitScreenState extends State<ExitScreen> {
                                       await audioCubit
                                           .playSound1('sound/knopka.mp3');
                                       if (context.mounted) {
-                                        // Закрытие приложения
+                                        
                                         SystemNavigator.pop();
                                       }
                                     },
@@ -121,7 +121,7 @@ class _ExitScreenState extends State<ExitScreen> {
                             const SizedBox(
                               width: 40,
                             ),
-                            // Блок для "No"
+                            
                             Column(
                               children: [
                                 Text(
@@ -136,7 +136,7 @@ class _ExitScreenState extends State<ExitScreen> {
                                       await audioCubit
                                           .playSound1('sound/knopka.mp3');
                                       if (context.mounted) {
-                                        // Ваш код для открытия другого экрана
+                                        
                                         Navigator.of(context)
                                             .pushReplacementNamed('/');
                                       }
@@ -157,7 +157,7 @@ class _ExitScreenState extends State<ExitScreen> {
                           ],
                         ),
 
-                        // Блок Music
+                        
                       ],
                     ),
                   )
@@ -176,59 +176,59 @@ class _ExitScreenState extends State<ExitScreen> {
 
 
 
-//             SizedBox(
-//               height: 550,
-//               child: Row(
-//                 crossAxisAlignment: CrossAxisAlignment
-//                     .center, // Изменено на CrossAxisAlignment.center
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   GestureDetector(
-//                     onTap: () async {
-//                       await audioCubit.playSound1('sound/knopka.mp3');
-//                       // Обработка нажатия на первое изображение
-//                       if (context.mounted) {
-//                         // Закрытие приложения
-//                         SystemNavigator.pop();
-//                       }
-//                     },
-//                     child: Center(
-//                       child: SizedBox(
-//                         width: 100,
-//                         height: 100,
-//                         child: Image.asset(
-//                           "assets/images/yes.png",
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   const SizedBox(
-//                       width: 20), // Небольшое расстояние между кнопками
-//                   GestureDetector(
-//                     onTap: () async {
-//                       await audioCubit.playSound1('sound/knopka.mp3');
-//                       // Обработка нажатия на кнопку "Exit Yes"
-//                       if (context.mounted) {
-//                         // Ваш код для открытия другого экрана
-//                         Navigator.of(context).pushReplacementNamed('/');
-//                       }
-//                     },
-//                     child: Center(
-//                       child: SizedBox(
-//                         width: 100,
-//                         height: 100,
-//                         child: Image.asset(
-//                           "assets/images/no.png",
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

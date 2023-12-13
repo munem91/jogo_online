@@ -32,7 +32,7 @@ class _RulesScreenState extends State<RulesScreen> {
               fit: StackFit.expand,
               children: [
                 Image.asset(
-                  'assets/images/settingscreen.png', // Укажите путь к вашему изображению
+                  'assets/images/settingscreen.png', 
                   fit: BoxFit.fill,
                 ),
 
@@ -52,7 +52,7 @@ class _RulesScreenState extends State<RulesScreen> {
                     ),
                   ),
                 ),
-                // Вертикальная колонка с плашкой и содержимым
+                
                 Center(
                   child: Stack(
                     children: [
@@ -61,7 +61,7 @@ class _RulesScreenState extends State<RulesScreen> {
                         child: Container(
                           width: MediaQuery.of(context).size.height * 1.2,
                           height: MediaQuery.of(context).size.width * 1.2,
-                          // color: Colors.black,
+                          
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                               image:
@@ -69,7 +69,7 @@ class _RulesScreenState extends State<RulesScreen> {
                             ),
                           ),
 
-                          // Строка с текстом "Settings"
+                          
 
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 70),
@@ -90,9 +90,9 @@ class _RulesScreenState extends State<RulesScreen> {
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
 
-                                  // Блок Sound
+                                  
 
-                                  // Блок Music
+                                  
                                 ]),
                           ),
                         ),

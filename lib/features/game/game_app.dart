@@ -31,8 +31,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               routes: {
                 '/': (context) => const FirstScreen(),
-                // FirstScreen(),
-                // MenuScreen(),
+             
                 '/settingScreen': (context) => const SettingScreen(),
                 '/gameScreen': (context) => const GameScreen(),
                 '/winnerScreen': (context) => const WinnerScreen(),

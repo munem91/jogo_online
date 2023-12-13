@@ -21,7 +21,7 @@ class AudioCubit extends Cubit<AudioState> {
   Future<void> _init() async {
     _prefs = await SharedPreferences.getInstance();
 
-    // Всегда устанавливаем значения в false при новом запуске
+    
     isButton1SoundEnabled = false;
     isButton2SoundEnabled = false;
 
@@ -59,7 +59,7 @@ class AudioCubit extends Cubit<AudioState> {
     if (isButton1SoundEnabled) {
       await _player1.play(AssetSource(soundPath));
     }
-    // Добавьте любые другие условия при необходимости
+    
   }
 
   Future<void> playSound2(String soundPath) async {
@@ -67,7 +67,7 @@ class AudioCubit extends Cubit<AudioState> {
       await _player2.play(AssetSource(soundPath));
       loop();
     }
-    // Добавьте любые другие условия при необходимости
+    
   }
 
   void loop() {

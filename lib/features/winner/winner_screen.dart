@@ -74,12 +74,12 @@ class _WinnerScreenState extends State<WinnerScreen> {
                           ]),
                     ),
                   ),
-                  // Добавьте другие элементы интерфейса по мере необходимости
+                  
                 ],
               ),
             );
           } else {
-            // Обработка других состояний, если необходимо
+            
             return const Center(child: CircularProgressIndicator());
           }
         },

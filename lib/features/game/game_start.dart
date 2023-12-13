@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:jogo_bbrbet_online/features/game/game_generator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class StartGame extends StatefulWidget {

@@ -16,7 +16,7 @@ class InitialGameState extends GameState {
   @override
   get draggedIndex => null;
 
-  // Инициализировать score значением 0
+  
   @override
   final int score = 0;
 }
@@ -35,7 +35,7 @@ class GameInProgressState extends GameState {
     required this.board,
     this.draggedIndex,
     this.score = 0,
-    this.level = 0, // Добавлено поле для уровня
+    this.level = 0, 
   });
 
   GameInProgressState copyWith({

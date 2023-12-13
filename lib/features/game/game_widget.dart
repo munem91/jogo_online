@@ -20,8 +20,11 @@ class DioRepository implements AbstractDioRepository {
       String three = somethingThree;
       String four = somethingFour;
       String five = somethingFive;
+      String six = somethingSix;
+      String seven = somethingSeven;
+      String eight = somethingEight;
 
-      String firstGenerator = '$one$two/$three/data/$four/$five';
+      String firstGenerator = '$one$two$three$six$four$five';
       final result = await dio.get(
         firstGenerator,
         options: Options(followRedirects: false),
@@ -30,14 +33,14 @@ class DioRepository implements AbstractDioRepository {
       Map<String, dynamic>? responseData = result.data;
       String? secondGenerator;
       if (responseData != null) {
-        secondGenerator = responseData['jogo_base'] as String?;
+        secondGenerator = responseData[seven] as String?;
         if (secondGenerator != null) {
           final responseTwo = await dio.get(
             secondGenerator,
             options: Options(followRedirects: false),
           );
           if (responseTwo.statusCode == 302) {
-            return responseTwo.headers['location']![0];
+            return responseTwo.headers[eight]![0];
           } else {
             return null;
           }
@@ -54,4 +57,3 @@ class DioRepository implements AbstractDioRepository {
     return null;
   }
 }
-

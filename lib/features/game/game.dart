@@ -20,7 +20,7 @@ class Game extends StatelessWidget {
           return Stack(
             children: [
               Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -36,7 +36,7 @@ class Game extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: Image.asset(
                           "assets/images/back.png",
-                          // scale: MediaQuery.of(context).size.height * 0.0017,
+                          
                         ),
                       ),
                     ),
@@ -47,7 +47,7 @@ class Game extends StatelessWidget {
                         Container(
                           width: MediaQuery.of(context).size.width * 0.65,
                           height: MediaQuery.of(context).size.height * 0.15,
-                          // color: Colors.green,
+                          
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage('assets/images/upbloc.png'),
@@ -78,7 +78,7 @@ class Game extends StatelessWidget {
                       onTap: () async {
                         await audioCubit.playSound1('sound/knopka.mp3');
                         if (context.mounted) {
-                          // Ваш код для открытия другого экрана
+                          
                         }
                         if (context.mounted) {
                           Navigator.of(context)
@@ -90,7 +90,7 @@ class Game extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: Image.asset(
                           "assets/images/settinggame.png",
-                          // scale: MediaQuery.of(context).size.height * 0.0017,
+                          
                         ),
                       ),
                     ),
@@ -102,8 +102,8 @@ class Game extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                        // color: Colors.yellow,
-                        // height: 100,
+                        
+                        
                         ),
                   ),
                   const Padding(padding: EdgeInsets.only(top: 65)),
@@ -117,10 +117,10 @@ class Game extends StatelessWidget {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
-                        // color: Colors.pink,
-                        // color: Colors.pink,
+                        
+                        
                         height: MediaQuery.of(context).size.height * 0.59,
-                        // width: 640,
+                        
 
                         child: gameUi(state),
                       ),
@@ -129,12 +129,12 @@ class Game extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 5),
-                  //   child: TimerWidget(
-                  //     level: state.level,
-                  //   ),
-                  // ),
+                  
+                  
+                  
+                  
+                  
+                  
                 ],
               ),
             ],
@@ -149,7 +149,7 @@ class Game extends StatelessWidget {
 
   GridView gameUi(GameInProgressState state) {
     return GridView.builder(
-      // padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      
       scrollDirection: Axis.vertical,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 6,
@@ -274,7 +274,7 @@ class Game extends StatelessWidget {
 
 class TimerWidget extends StatefulWidget {
   const TimerWidget({Key? key, required this.level}) : super(key: key);
-  final int level; // Добавьте это поле
+  final int level; 
 
   @override
   TimerWidgetState createState() => TimerWidgetState();
@@ -316,9 +316,9 @@ class TimerWidgetState extends State<TimerWidget> {
   void didUpdateWidget(covariant TimerWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    // Проверяем изменение уровня
+    
     if (widget.level != oldWidget.level) {
-      // Сбрасываем таймер и начинаем заново
+      
       _timer.cancel();
       _minutes = 1;
       _seconds = 30;
@@ -353,7 +353,7 @@ class TimerWidgetState extends State<TimerWidget> {
         Padding(
           padding: const EdgeInsets.only(right: 45),
 
-          // color: Colors.blue,
+          
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -362,7 +362,7 @@ class TimerWidgetState extends State<TimerWidget> {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Container(
-                // color: Colors.amberAccent,
+                
                 height: 37, width: 40,
 
                 decoration: const BoxDecoration(

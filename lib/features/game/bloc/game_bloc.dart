@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'game_event.dart';
 part 'game_state.dart';
@@ -29,31 +28,28 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     } while (_hasThreeOrMoreInARow(initialBoard) ||
         _hasThreeOrMoreInAColumn(initialBoard));
 
-    // Проверить и уничтожить три и более элемента в ряду
     for (int r = 0; r < initialBoard.length; r++) {
       for (int c = 0; c < initialBoard[r].length - 2; c++) {
         if (initialBoard[r][c] == initialBoard[r][c + 1] &&
             initialBoard[r][c + 1] == initialBoard[r][c + 2]) {
-          initialBoard[r][c] = -1; // Mark for crushing
+          initialBoard[r][c] = -1;
           initialBoard[r][c + 1] = -1;
           initialBoard[r][c + 2] = -1;
         }
       }
     }
 
-    // Проверить и уничтожить три и более элемента в столбце
     for (int c = 0; c < initialBoard[0].length; c++) {
       for (int r = 0; r < initialBoard.length - 2; r++) {
         if (initialBoard[r][c] == initialBoard[r + 1][c] &&
             initialBoard[r + 1][c] == initialBoard[r + 2][c]) {
-          initialBoard[r][c] = -1; // Mark for crushing
+          initialBoard[r][c] = -1;
           initialBoard[r + 1][c] = -1;
           initialBoard[r + 2][c] = -1;
         }
       }
     }
 
-    // Уничтожить помеченные элементы
     _crushCandy(initialBoard, emit, state);
 
     emit(
@@ -119,20 +115,16 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       updatedBoard[firstRow][firstCol] = updatedBoard[secondRow][secondCol];
       updatedBoard[secondRow][secondCol] = temp;
 
-      // Check and crush candies
       bool hasMatch = _hasThreeOrMoreInARow(updatedBoard) ||
           _hasThreeOrMoreInAColumn(updatedBoard);
 
-      // Revert the swap if it doesn't create a match
       if (!hasMatch) {
         temp = updatedBoard[firstRow][firstCol];
         updatedBoard[firstRow][firstCol] = updatedBoard[secondRow][secondCol];
         updatedBoard[secondRow][secondCol] = temp;
       }
 
-      // Continue checking and crushing candies until no more matches
       while (hasMatch) {
-        // Here, you can also check for and crush candies if necessary
         if (hasMatch) {
           int matchCount = _getMatchCount(updatedBoard);
           updatedScore += (matchCount > 3) ? 70 : 50;
@@ -143,11 +135,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           board: updatedBoard,
           draggedIndex: null,
           score: updatedScore,
-          level:
-              (state as GameInProgressState).level, // Keep the level unchanged
+          level: (state as GameInProgressState).level,
         ));
 
-        // Check for new matches after crushing candies
         hasMatch = _hasThreeOrMoreInARow(updatedBoard) ||
             _hasThreeOrMoreInAColumn(updatedBoard);
       }
@@ -155,15 +145,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         int currentLevel = (state as GameInProgressState).level;
 
         if (updatedScore >= 1000 && currentLevel < 5) {
-          currentLevel = 5; // Уровень 6 (индекс 5 в списке)
+          currentLevel = 5;
         } else if (updatedScore >= 800 && currentLevel < 4) {
-          currentLevel = 4; // Уровень 5 (индекс 4 в списке)
+          currentLevel = 4;
         } else if (updatedScore >= 600 && currentLevel < 3) {
-          currentLevel = 3; // Уровень 4 (индекс 3 в списке)
+          currentLevel = 3;
         } else if (updatedScore >= 400 && currentLevel < 2) {
-          currentLevel = 2; // Уровень 3 (индекс 2 в списке)
+          currentLevel = 2;
         } else if (updatedScore >= 200 && currentLevel < 1) {
-          currentLevel = 1; // Уровень 2 (индекс 1 в списке)
+          currentLevel = 1;
         }
 
         emit(GameInProgressState(
@@ -173,8 +163,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           level: currentLevel,
         ));
       } else {
-        // No match after reverting the swap
-        // Reset matchCount to 0
         emit(GameInProgressState(
           board: updatedBoard,
           draggedIndex: null,
@@ -193,7 +181,6 @@ int _getMatchCount(List<List<int>> board) {
   int matchCount = 0;
   Set<List<int>> matchedCandies = <List<int>>{};
 
-  // Проверка строк на совпадения
   for (int r = 0; r < board.length; r++) {
     for (int c = 0; c < board[r].length - 2; c++) {
       if (board[r][c] != -1 &&
@@ -208,7 +195,7 @@ int _getMatchCount(List<List<int>> board) {
             consecutiveCount++;
           }
           matchCount += (consecutiveCount >= 4) ? consecutiveCount : 0;
-          // Пометить для разрушения
+
           for (int i = 0; i < consecutiveCount; i++) {
             board[r][c + i] = -1;
           }
@@ -217,7 +204,6 @@ int _getMatchCount(List<List<int>> board) {
     }
   }
 
-  // Проверка столбцов на совпадения
   for (int c = 0; c < board[0].length; c++) {
     for (int r = 0; r < board.length - 2; r++) {
       if (board[r][c] != -1 &&
@@ -232,7 +218,7 @@ int _getMatchCount(List<List<int>> board) {
             consecutiveCount++;
           }
           matchCount += (consecutiveCount >= 4) ? consecutiveCount : 0;
-          // Пометить для разрушения
+
           for (int i = 0; i < consecutiveCount; i++) {
             board[r + i][c] = -1;
           }
@@ -246,13 +232,11 @@ int _getMatchCount(List<List<int>> board) {
 
 void _crushCandy(
     List<List<int>> board, Emitter<GameState> emit, GameState state) {
-  // int totalCrushedCandies = 0;
   bool hasCrush = true;
 
   while (hasCrush) {
     hasCrush = false;
 
-    // Проверить строки
     for (int r = 0; r < board.length; r++) {
       for (int c = 0; c < board[r].length - 2; c++) {
         int consecutiveCount = 1;
@@ -264,25 +248,21 @@ void _crushCandy(
         }
 
         if (consecutiveCount >= 3) {
-          // Пометить для разрушения
           for (int i = 0; i < consecutiveCount; i++) {
             board[r][c + i] = -1;
           }
           hasCrush = true;
 
-          // Начислить очки за каждый новый элемент
           emit(GameInProgressState(
             board: board,
             draggedIndex: null,
-            score: (state as GameInProgressState).score +
-                consecutiveCount, // Начислить очки
+            score: (state as GameInProgressState).score + consecutiveCount,
             level: (state).level,
           ));
         }
       }
     }
 
-    // Проверить столбцы
     for (int c = 0; c < board[0].length; c++) {
       for (int r = 0; r < board.length - 2; r++) {
         int consecutiveCount = 1;
@@ -294,25 +274,21 @@ void _crushCandy(
         }
 
         if (consecutiveCount >= 3) {
-          // Пометить для разрушения
           for (int i = 0; i < consecutiveCount; i++) {
             board[r + i][c] = -1;
           }
           hasCrush = true;
 
-          // Начислить очки за каждый новый элемент
           emit(GameInProgressState(
             board: board,
             draggedIndex: null,
-            score: (state as GameInProgressState).score +
-                consecutiveCount, // Начислить очки
+            score: (state as GameInProgressState).score + consecutiveCount,
             level: (state).level,
           ));
         }
       }
     }
 
-    // Разрушить помеченные конфеты
     for (int c = 0; c < board[0].length; c++) {
       int emptyCount = 0;
 
@@ -320,13 +296,11 @@ void _crushCandy(
         if (board[r][c] == -1) {
           emptyCount++;
         } else if (emptyCount > 0) {
-          // Сдвинуть элементы выше
           board[r + emptyCount][c] = board[r][c];
           board[r][c] = -1;
         }
       }
 
-      // Заменить новыми конфетами
       for (int i = 0; i < emptyCount; i++) {
         board[i][c] = Random().nextInt(7);
       }

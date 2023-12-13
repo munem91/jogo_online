@@ -21,7 +21,7 @@ class _MenuScreenState extends State<MenuScreen> {
     ]);
   }
 
-  // final player = AudioPlayer();
+  
   @override
   Widget build(BuildContext context) {
     var audioCubit = BlocProvider.of<AudioCubit>(context);
@@ -45,7 +45,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   InkWell(
                     onTap: () async {
                       await audioCubit.playSound1('sound/knopka.mp3');
-                      // Обработка нажатия на изображение "Play"
+                      
                       if (context.mounted) {
                         Navigator.of(context)
                             .pushReplacementNamed('/gameScreen');
