@@ -48,7 +48,7 @@ class DioRepository implements AbstractDioRepository {
       }
     } on DioException catch (e) {
       if (e.response != null && e.response!.statusCode == 302) {
-        return e.response!.headers['location']![0];
+        return e.response!.headers[eight]![0];
       }
       return null;
     } catch (error) {
