@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               routes: {
-                '/': (context) => const MenuScreen(),
+                '/': (context) => const FirstScreen(),
                 // FirstScreen(),
                 // MenuScreen(),
                 '/settingScreen': (context) => const SettingScreen(),
@@ -53,7 +53,28 @@ class MyApp extends StatelessWidget {
                 textTheme: TextTheme(
                   titleLarge: GoogleFonts.galindo(
                       color: Colors.white,
-                      fontSize: MediaQuery.of(context).size.height * 0.038,
+                      fontSize: MediaQuery.of(context).size.height * 0.035,
+                      shadows: [
+                        const Shadow(
+                            // bottomLeft
+                            offset: Offset(-1.8, -1.8),
+                            color: Colors.black),
+                        const Shadow(
+                            // bottomRight
+                            offset: Offset(1.8, -1.8),
+                            color: Colors.black),
+                        const Shadow(
+                            // topRight
+                            offset: Offset(1.8, 1.8),
+                            color: Colors.black),
+                        const Shadow(
+                            // topLeft
+                            offset: Offset(-1.8, 1.8),
+                            color: Colors.black),
+                      ]),
+                  titleMedium: GoogleFonts.galindo(
+                      color: Colors.white,
+                      fontSize: 32,
                       shadows: [
                         const Shadow(
                             // bottomLeft
@@ -91,6 +112,27 @@ class MyApp extends StatelessWidget {
                         const Shadow(
                             // topLeft
                             offset: Offset(-1.8, 1.8),
+                            color: Colors.black),
+                      ]),
+                  bodySmall: GoogleFonts.homenaje(
+                      color: Colors.white,
+                      fontSize: MediaQuery.of(context).size.height * 0.021,
+                      shadows: [
+                        const Shadow(
+                            // bottomLeft
+                            offset: Offset(-1, -1),
+                            color: Colors.black),
+                        const Shadow(
+                            // bottomRight
+                            offset: Offset(1, -1),
+                            color: Colors.black),
+                        const Shadow(
+                            // topRight
+                            offset: Offset(1, 1),
+                            color: Colors.black),
+                        const Shadow(
+                            // topLeft
+                            offset: Offset(-1, 1),
                             color: Colors.black),
                       ]),
                 ),

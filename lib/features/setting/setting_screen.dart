@@ -80,7 +80,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       "Settings",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .titleLarge,
+                                          .titleMedium,
                                     ),
                                   ],
                                 ),

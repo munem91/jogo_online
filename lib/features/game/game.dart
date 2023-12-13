@@ -49,9 +49,10 @@ class Game extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.15,
                           // color: Colors.green,
                           decoration: const BoxDecoration(
-                              image: DecorationImage(
-                            image: AssetImage('assets/images/upbloc.png'),
-                          )),
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/upbloc.png'),
+                            ),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Row(
@@ -97,30 +98,43 @@ class Game extends StatelessWidget {
                 ],
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.1314),
-                  Container(
-                    // color: Colors.pink,
-                    // width: 650,
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/pirat.png')),
-                    ),
+                  Expanded(
+                    child: Container(
+                        // color: Colors.yellow,
+                        // height: 100,
+                        ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.055),
-                    child: SizedBox(
-                      // color: Colors.pink,
-                      height: MediaQuery.of(context).size.height * 0.63,
-                      // width: 640,
-                      child: gameUi(state),
-                    ),
+                  const Padding(padding: EdgeInsets.only(top: 65)),
+                  Column(
+                    children: [
+                      Container(
+                        height: 65,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/pirat.png'))),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        // color: Colors.pink,
+                        // color: Colors.pink,
+                        height: MediaQuery.of(context).size.height * 0.59,
+                        // width: 640,
+
+                        child: gameUi(state),
+                      ),
+                      TimerWidget(
+                        level: state.level,
+                      ),
+                    ],
                   ),
-                  TimerWidget(
-                    level: state.level,
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 5),
+                  //   child: TimerWidget(
+                  //     level: state.level,
+                  //   ),
+                  // ),
                 ],
               ),
             ],
@@ -315,8 +329,6 @@ class TimerWidgetState extends State<TimerWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -336,15 +348,32 @@ class TimerWidgetState extends State<TimerWidget> {
           ],
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
+          height: MediaQuery.of(context).size.height * 0.004,
         ),
         Padding(
           padding: const EdgeInsets.only(right: 45),
-          child: Text(
-            'Maps: ${widget.level}/5',
-            style: Theme.of(context).textTheme.titleLarge,
+
+          // color: Colors.blue,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '       Maps: ${widget.level}/5',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Container(
+                // color: Colors.amberAccent,
+                height: 37, width: 40,
+
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/spisok.png'),
+                        scale: 1)),
+              )
+            ],
           ),
         ),
+        const SizedBox(height: 20),
       ],
     );
   }

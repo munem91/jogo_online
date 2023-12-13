@@ -186,8 +186,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 }
 
 void printBoard(List<List<int>> board) {
-  for (var row in board) {
-  }
+  for (var row in board) {}
 }
 
 int _getMatchCount(List<List<int>> board) {
@@ -247,7 +246,7 @@ int _getMatchCount(List<List<int>> board) {
 
 void _crushCandy(
     List<List<int>> board, Emitter<GameState> emit, GameState state) {
-  int totalCrushedCandies = 0;
+  // int totalCrushedCandies = 0;
   bool hasCrush = true;
 
   while (hasCrush) {
