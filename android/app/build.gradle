@@ -40,6 +40,23 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+      signingConfigs {
+    create("release") {
+        storeFile =file("keystore.jks")
+        storePassword= "newapp"
+        keyAlias ="key0"
+        keyPassword ="newapp"
+        storeType= "jks"
+    }
+}
+    buildTypes {
+    release {
+
+        signingConfig = signingConfigs.getByName("release")
+
+    }
+}
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.Jogo.BbrBet.Online.three.rows"
